@@ -14,22 +14,26 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { CartOrderSummary } from "./CartOrderSummary";
-import { cartData } from "./_data";
 import { useOrderDetails } from "@/hooks/useOrderDetails";
 import Image from "next/image";
 import { CartItem } from "./CartItem";
 import DeliveryDetails from "./DeliveryDetails";
+import useCart from "@/(store)/store";
+import EmptyCart from "./EmptyCart";
 
 const CartPage = () => {
   const { orderDetails, loading, error } = useOrderDetails();
-  const { products, paymentMethods } = orderDetails || {
-    products: [],
-    paymentMethods: [],
-  };
+
+  // const { products, paymentMethods } = orderDetails || {
+  //   products: [],
+  //   paymentMethods: [],
+  // };
+
+  const hookCart = useCart();
 
   // Function to calculate the total value based on products in the cart
   const calculateTotalValue = () => {
-    return products.reduce(
+    return hookCart.cart.reduce(
       (total, product) => total + product.price * product.quantity,
       0
     );
@@ -67,13 +71,19 @@ const CartPage = () => {
             padding="8"
           >
             <Heading fontSize="2xl" fontWeight="extrabold">
-              Shopping Cart ({products.length}{" "}
-              {products.length > 1 ? "Items" : "Item"})
+              Shopping Cart ({hookCart.cart.length}{" "}
+              {hookCart.cart.length > 1 ? "Items" : "Item"})
             </Heading>
 
+            {hookCart.cart.length < 1 && <EmptyCart />}
+
             <Stack spacing="6">
-              {products.map((product) => (
-                <CartItem key={product.id} {...product} />
+              {hookCart.cart.map((product: any) => (
+                <CartItem
+                  key={product.id}
+                  {...product}
+                  onChangeQuantity={() => {}}
+                />
               ))}
             </Stack>
           </Stack>
@@ -89,7 +99,9 @@ const CartPage = () => {
           </Flex>
         </Stack>
 
-        <DeliveryDetails onSubmit={() => console.log("Form submitted")} />
+        {hookCart.cart.length > 0 && (
+          <DeliveryDetails onSubmit={() => console.log("Form submitted")} />
+        )}
       </Box>
     </>
   );
