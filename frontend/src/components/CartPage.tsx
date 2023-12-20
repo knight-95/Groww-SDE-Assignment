@@ -20,7 +20,17 @@ const CartPage = () => {
     products: [],
     paymentMethods: [],
   };
-  
+
+  // Function to calculate the total value based on products in the cart
+  const calculateTotalValue = () => {
+    return products.reduce(
+      (total, product) => total + product.price * product.quantity,
+      0
+    );
+  };
+
+  const totalValue = calculateTotalValue();
+
   // Handling loading and error states
   if (loading) {
     return <div>Loading...</div>;
@@ -45,27 +55,19 @@ const CartPage = () => {
         >
           <Stack spacing={{ base: "8", md: "10" }} flex="2">
             <Heading fontSize="2xl" fontWeight="extrabold">
-              Shopping Cart (3 items)
+              Shopping Cart ({products.length}{" "}
+              {products.length > 1 ? "Items" : "Item"})
             </Heading>
 
             <Stack spacing="6">
               {products.map((product) => (
                 <CartItem key={product.id} {...product} />
               ))}
-
-              {products.map((product) => (
-                <div key={product.id}>
-                  <p>{product.title}</p>
-                  <p>Quantity: {product.quantity}</p>
-                  <p>Price: ₹{product.price}</p>
-                  {/* <Image src={product.image} alt={product.title} /> */}
-                </div>
-              ))}
             </Stack>
           </Stack>
 
           <Flex direction="column" align="center" flex="1">
-            <CartOrderSummary />
+            <CartOrderSummary totalValue={totalValue} />
             <HStack mt="6" fontWeight="semibold">
               <p>or</p>
               <Link color={mode("blue.500", "blue.200")}>
