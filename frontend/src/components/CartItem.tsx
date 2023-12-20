@@ -58,14 +58,10 @@ export const CartItem = (props: CartItemProps) => {
         display={{ base: "none", md: "flex" }}
       >
         <QuantitySelect
-         defaultQuantity={quantity}
-         onChangeQuantity={(newQuantity) => {
-           onChangeQuantity?.(newQuantity);
-         }}
-          // value={quantity}
-          // onChange={(e) => {
-          //   onChangeQuantity?.(+e.currentTarget.value);
-          // }}
+          defaultQuantity={quantity}
+          onChangeQuantity={(newQuantity) => {
+            onChangeQuantity?.(newQuantity);
+          }}
         />
         <PriceTag price={price} currency="INR" />
         <CloseButton
@@ -86,9 +82,9 @@ export const CartItem = (props: CartItemProps) => {
           Delete
         </Link>
         <QuantitySelect
-          value={quantity}
-          onChange={(e) => {
-            onChangeQuantity?.(+e.currentTarget.value);
+          defaultQuantity={quantity}
+          onChangeQuantity={(newQuantity) => {
+            onChangeQuantity?.(newQuantity);
           }}
         />
         <PriceTag price={price} currency={currency} />
