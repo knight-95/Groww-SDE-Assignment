@@ -1,5 +1,5 @@
 export const fetchOrderDetails = async () => {
-  const BASE_URL =
+  let BASE_URL =
     "https://groww-intern-assignment.vercel.app/v1/api/order-details";
   try {
     const response = await fetch(BASE_URL);

@@ -8,3 +8,4 @@ export interface OrderDetails {
     }[];
     paymentMethods: string[];
   }
+  
