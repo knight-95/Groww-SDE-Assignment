@@ -20,6 +20,7 @@ import { CartItem } from "./CartItem";
 import DeliveryDetails from "./DeliveryDetails";
 import useCart from "@/(store)/store";
 import EmptyCart from "./EmptyCart";
+import Loader from "./Loader";
 
 const CartPage = () => {
   const { orderDetails, loading, error } = useOrderDetails();
@@ -43,7 +44,7 @@ const CartPage = () => {
 
   // Handling loading and error states
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader/>
   }
 
   if (error) {
