@@ -7,12 +7,18 @@ import {
   Link,
   Stack,
   useColorModeValue as mode,
+  Card,
+  CardHeader,
+  CardBody,
+  FormLabel,
+  Input,
 } from "@chakra-ui/react";
 import { CartOrderSummary } from "./CartOrderSummary";
 import { cartData } from "./_data";
 import { useOrderDetails } from "@/hooks/useOrderDetails";
 import Image from "next/image";
 import { CartItem } from "./CartItem";
+import DeliveryDetails from "./DeliveryDetails";
 
 const CartPage = () => {
   const { orderDetails, loading, error } = useOrderDetails();
@@ -53,7 +59,13 @@ const CartPage = () => {
           align={{ lg: "flex-start" }}
           spacing={{ base: "8", md: "16" }}
         >
-          <Stack spacing={{ base: "8", md: "10" }} flex="2">
+          <Stack
+            spacing={{ base: "8", md: "10" }}
+            flex="2"
+            borderWidth="1px"
+            rounded="lg"
+            padding="8"
+          >
             <Heading fontSize="2xl" fontWeight="extrabold">
               Shopping Cart ({products.length}{" "}
               {products.length > 1 ? "Items" : "Item"})
@@ -76,6 +88,8 @@ const CartPage = () => {
             </HStack>
           </Flex>
         </Stack>
+
+        <DeliveryDetails onSubmit={() => console.log("Form submitted")} />
       </Box>
     </>
   );

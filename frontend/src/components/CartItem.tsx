@@ -38,6 +38,11 @@ export const CartItem = (props: CartItemProps) => {
     onClickDelete,
   } = props;
 
+  const handleDeleteClick = () => {
+    // Call the parent component's delete handler to remove the item
+    onClickDelete?.();
+  };
+
   return (
     <Flex
       direction={{ base: "column", md: "row" }}
@@ -56,6 +61,7 @@ export const CartItem = (props: CartItemProps) => {
         width="full"
         justify="space-between"
         display={{ base: "none", md: "flex" }}
+        marginLeft="2rem"
       >
         <QuantitySelect
           defaultQuantity={quantity}
@@ -66,7 +72,7 @@ export const CartItem = (props: CartItemProps) => {
         <PriceTag price={price} currency="INR" />
         <CloseButton
           aria-label={`Delete ${title} from cart`}
-          onClick={onClickDelete}
+          onClick={handleDeleteClick} // Use the custom handler to delete entire item
         />
       </Flex>
 

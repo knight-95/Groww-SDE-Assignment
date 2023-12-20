@@ -65,27 +65,23 @@ export const CartOrderSummary = ({ totalValue }: any) => {
           </Link>
         </OrderSummaryItem>
         {isCouponCodeVisible && (
-          <Stack
-            spacing="8"
-            borderWidth="1px"
-            rounded="lg"
-            padding="8"
-            width="full"
-          >
-            <OrderSummaryItem label="Coupon Code">
-              <Flex>
-                <Input
-                  type="text"
-                  placeholder="Enter coupon code"
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value)}
-                />
-                <Button ml="2" onClick={() => applyCoupon(couponCode)}>
-                  Apply
-                </Button>
-              </Flex>
-            </OrderSummaryItem>
-          </Stack>
+          <>
+            <Flex>
+              <Input
+                type="text"
+                placeholder="Enter Coupon Code"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value)}
+              />
+              <Button
+                ml="2"
+                onClick={() => applyCoupon(couponCode)}
+                colorScheme="blue"
+              >
+                Apply
+              </Button>
+            </Flex>
+          </>
         )}
         <Flex justify="space-between">
           <Text fontSize="lg" fontWeight="semibold">
