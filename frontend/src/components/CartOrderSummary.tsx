@@ -11,6 +11,7 @@ import {
 import { FaArrowRight } from "react-icons/fa";
 import { formatPrice } from "./PriceTag";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 type OrderSummaryItemProps = {
   label: string;
@@ -31,17 +32,13 @@ const OrderSummaryItem = (props: OrderSummaryItemProps) => {
   );
 };
 
-export const CartOrderSummary = ({ subTotal }: any) => {
+export const CartOrderSummary = ({ subTotal, isCartEmpty }: any) => {
+  const router = useRouter();
   const [appliedCoupon, setAppliedCoupon] = useState("");
   const [discount, setDiscount] = useState(0);
   const [couponCode, setCouponCode] = useState<string>("");
   const [isCouponCodeVisible, setIsCouponCodeVisible] =
     useState<boolean>(false);
-
-  // Initialize shippingCharges with an initial value
-  const [shippingCharges, setShippingCharges] = useState<number>(
-    subTotal < 499 ? 199 : 0
-  );
 
   const applyCoupon = (code: string) => {
     let appliedDiscount = 0;
@@ -72,6 +69,14 @@ export const CartOrderSummary = ({ subTotal }: any) => {
     setIsCouponCodeVisible(!isCouponCodeVisible);
   };
 
+  const handleCheckout = () => {
+    // Handle any additional logic before redirecting, if needed
+    router.push("/checkout"); // Redirect to /checkout page
+  };
+  let grandTotal = subTotal - discount;
+  if (subTotal < 499) {
+    grandTotal += 199;
+  }
   return (
     <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
       <Heading size="md">Order Summary</Heading>
@@ -81,7 +86,13 @@ export const CartOrderSummary = ({ subTotal }: any) => {
         <>
           <OrderSummaryItem
             label="Shipping Charges"
-            value={subTotal < 499 ? formatPrice(199) : undefined}
+            value={
+              isCartEmpty
+                ? formatPrice(0)
+                : subTotal < 499
+                ? formatPrice(199)
+                : undefined
+            }
           >
             {subTotal < 499 && (
               <Link href="#" textDecor="underline">
@@ -96,7 +107,10 @@ export const CartOrderSummary = ({ subTotal }: any) => {
           </OrderSummaryItem>
         </>
         <OrderSummaryItem label="Coupon Code">
-          <Link onClick={handleShowCouponCode} textDecor="underline">
+          <Link
+            onClick={!isCartEmpty ? handleShowCouponCode : undefined}
+            textDecor="underline"
+          >
             Add coupon code
           </Link>
         </OrderSummaryItem>
@@ -119,7 +133,7 @@ export const CartOrderSummary = ({ subTotal }: any) => {
             </Flex>
             {appliedCoupon && (
               <Text mt="0" color="green.500">
-                Coupon {appliedCoupon} applied successfully. You have saved ₹
+                Coupon {appliedCoupon} applied successfully. You have saved{" "}
                 {formatPrice(discount)}
               </Text>
             )}
@@ -135,9 +149,13 @@ export const CartOrderSummary = ({ subTotal }: any) => {
           <Text fontSize="lg" fontWeight="semibold">
             Total
           </Text>
-          <Text fontSize="xl" fontWeight="extrabold">
-            {formatPrice(subTotal+(shippingCharges-discount))}
-          </Text>
+          {isCartEmpty ? (
+            <Text fontWeight="extrabold" color="red.500">
+              Cart is Empty
+            </Text>
+          ) : (
+            <Text>{formatPrice(grandTotal)}</Text>
+          )}
         </Flex>
       </Stack>
       <Button
@@ -145,6 +163,8 @@ export const CartOrderSummary = ({ subTotal }: any) => {
         size="lg"
         fontSize="md"
         rightIcon={<FaArrowRight />}
+        isDisabled={isCartEmpty}
+        onClick={handleCheckout}
       >
         Checkout
       </Button>

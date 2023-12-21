@@ -90,19 +90,21 @@ const CartPage = () => {
             {hookCart.cart.length < 1 && <EmptyCart />}
 
             <Stack spacing="6">
-              {hookCart.cart.map((product: any, index:any) => (
+              {hookCart.cart.map((product: any, index: any) => (
                 <CartItem
                   key={product.id}
-                  onClickDelete={(index:any)=>{
+                  onClickDelete={(index: any) => {
                     hookCart.removeItemFromCart(index);
                   }}
                   {...product}
                   onChangeQuantity={(productId: any, quantity: number) => {
                     let existingCart = hookCart.cart;
                     console.log("existing carts", existingCart);
-                    const product = existingCart.find((p) => p.id === productId);
+                    const product = existingCart.find(
+                      (p) => p.id === productId
+                    );
 
-                    existingCart.find((p) => p.id === productId) ;
+                    existingCart.find((p) => p.id === productId);
 
                     hookCart.setCart(existingCart);
                   }}
@@ -112,7 +114,10 @@ const CartPage = () => {
           </Stack>
 
           <Flex direction="column" align="center" flex="1">
-            <CartOrderSummary subTotal={subTotal} />
+            <CartOrderSummary
+              subTotal={subTotal}
+              isCartEmpty={hookCart.cart.length > 0 ? false : true}
+            />
             <HStack mt="6" fontWeight="semibold">
               <p>or</p>
               <Link color={mode("blue.500", "blue.200")} onClick={reloadCart}>
