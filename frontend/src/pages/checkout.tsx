@@ -1,9 +1,50 @@
-import React from 'react'
+// Import necessary libraries and components
+import { ChakraProvider, Box, Tabs, TabList, Tab, TabPanels, TabPanel, Text } from '@chakra-ui/react';
+import React from 'react';
 
-const checkout = () => {
+// Card component
+const CardTab = () => {
   return (
-    <div>checkout</div>
-  )
-}
+    <Box p={4}>
+      {/* Add your card payment form or relevant content here */}
+      <Text>Card Payment Form</Text>
+      
+    </Box>
+  );
+};
 
-export default checkout
+// Wallet component
+const WalletTab = () => {
+  return (
+    <Box p={4}>
+      {/* Add your wallet payment form or relevant content here */}
+      <Text>Wallet Payment Form</Text>
+    </Box>
+  );
+};
+
+// Payment page component
+const PaymentPage = () => {
+  return (
+    <ChakraProvider>
+      <Box p={8}>
+        <Tabs size='md' variant='enclosed'isFitted>
+          <TabList mb="1em">
+            <Tab>Card</Tab>
+            <Tab>Wallet</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <CardTab />
+            </TabPanel>
+            <TabPanel>
+              <WalletTab />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Box>
+    </ChakraProvider>
+  );
+};
+
+export default PaymentPage;
