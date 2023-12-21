@@ -15,7 +15,7 @@ const OrderConfirmed = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      justifyContent="center"
+      justifyContent="start"
       height="80vh"
       borderWidth="1px"
       rounded="lg"

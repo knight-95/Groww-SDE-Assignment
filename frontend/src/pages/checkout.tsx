@@ -1,5 +1,6 @@
 // Import necessary libraries and components
 
+import { Header } from "@/components/Header";
 import CreditCardForm from "@/components/debit_card/CreditCard";
 import {
   ChakraProvider,
@@ -37,11 +38,12 @@ const WalletTab = () => {
 const PaymentPage = () => {
   return (
     <ChakraProvider>
+      <Header/>
       <Box p={8}>
         <Tabs size="md" variant="enclosed" isFitted>
           <TabList mb="1em">
-            <Tab>Card</Tab>
-            <Tab>Wallet</Tab>
+            <Tab>CARD</Tab>
+            <Tab>UPI</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
