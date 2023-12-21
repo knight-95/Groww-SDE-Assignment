@@ -22,7 +22,7 @@ type CartItemProps = {
   image: string;
   onChangeQuantity?: (quantity: number) => void;
   onClickGiftWrapping?: () => void;
-  onClickDelete?: () => void;
+  onClickDelete?: (index:any) => void;
 };
 
 export const CartItem = (props: CartItemProps) => {
@@ -38,9 +38,9 @@ export const CartItem = (props: CartItemProps) => {
     onClickDelete,
   } = props;
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (index: any) => {
     // Call the parent component's delete handler to remove the item
-    onClickDelete?.();
+    onClickDelete?.(index);
   };
 
   return (

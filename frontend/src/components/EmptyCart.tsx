@@ -2,8 +2,12 @@ import { Button, Flex, Image, Text } from "@chakra-ui/react";
 import { FaArrowRight } from "react-icons/fa";
 
 const EmptyCart = () => {
+  const reloadCart = () => {
+    // For now, we are just reloading the page
+    window.location.reload();
+  };
   return (
-    <Flex direction="column" align="center" justify="center" >
+    <Flex direction="column" align="center" justify="center">
       <Image
         src="https://img.freepik.com/premium-vector/shopping-cart-with-cross-mark-wireless-paymant-icon-shopping-bag-failure-paymant-sign-online-shopping-vector_662353-912.jpg"
         alt="empty_cart"
@@ -14,12 +18,14 @@ const EmptyCart = () => {
         Your Cart is Empty
       </Text>
       <Text textAlign="center">Add something to make me happy :)</Text>
+
       <Button
         colorScheme="blue"
         size="lg"
         fontSize="sm"
         rightIcon={<FaArrowRight />}
         marginTop="1.5rem"
+        onClick={reloadCart}
       >
         Reload Cart
       </Button>

@@ -25,6 +25,10 @@ import Loader from "./Loader";
 const CartPage = () => {
   const { orderDetails, loading, error } = useOrderDetails();
 
+  const reloadCart = () => {
+    // For now, we are just reloading the page
+    window.location.reload();
+  };
   // const { products, paymentMethods } = orderDetails || {
   //   products: [],
   //   paymentMethods: [],
@@ -39,12 +43,19 @@ const CartPage = () => {
       0
     );
   };
+  const subTotal = calculateTotalValue();
 
-  const totalValue = calculateTotalValue();
+  const totalCartItem = () => {
+    return hookCart.cart.reduce(
+      (total, product) => total + product.quantity,
+      0
+    );
+  };
+  const totalCartItems = totalCartItem();
 
   // Handling loading and error states
   if (loading) {
-    return <Loader/>
+    return <Loader />;
   }
 
   if (error) {
@@ -79,21 +90,32 @@ const CartPage = () => {
             {hookCart.cart.length < 1 && <EmptyCart />}
 
             <Stack spacing="6">
-              {hookCart.cart.map((product: any) => (
+              {hookCart.cart.map((product: any, index:any) => (
                 <CartItem
                   key={product.id}
+                  onClickDelete={(index:any)=>{
+                    hookCart.removeItemFromCart(index);
+                  }}
                   {...product}
-                  onChangeQuantity={() => {}}
+                  onChangeQuantity={(productId: any, quantity: number) => {
+                    let existingCart = hookCart.cart;
+                    console.log("existing carts", existingCart);
+                    const product = existingCart.find((p) => p.id === productId);
+
+                    existingCart.find((p) => p.id === productId) ;
+
+                    hookCart.setCart(existingCart);
+                  }}
                 />
               ))}
             </Stack>
           </Stack>
 
           <Flex direction="column" align="center" flex="1">
-            <CartOrderSummary totalValue={totalValue} />
+            <CartOrderSummary subTotal={subTotal} />
             <HStack mt="6" fontWeight="semibold">
               <p>or</p>
-              <Link color={mode("blue.500", "blue.200")}>
+              <Link color={mode("blue.500", "blue.200")} onClick={reloadCart}>
                 Continue shopping
               </Link>
             </HStack>
