@@ -1,8 +1,13 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 const OrderFailed = () => {
+  const router = useRouter();
+  const handleFailure = () => {
+    router.push("/checkout");
+  };
   return (
     <Box
       display="flex"
@@ -12,7 +17,8 @@ const OrderFailed = () => {
       height="80vh"
       borderWidth="1px"
       rounded="lg"
-      width={{ base: "90%", sm: "70%", md: "50%", lg: "40%" }}
+      // width={{ base: "90%", sm: "70%", md: "50%", lg: "40%" }}
+      width="100%"
       padding={{ base: 4, sm: 6, md: 8 }}
       marginX="auto"
     >
@@ -40,6 +46,7 @@ const OrderFailed = () => {
         fontSize="md"
         rightIcon={<FaArrowRight />}
         marginTop="2rem"
+        onClick={handleFailure}
       >
         Back to Payments
       </Button>

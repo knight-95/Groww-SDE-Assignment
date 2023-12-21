@@ -1,24 +1,17 @@
-import React from "react";
+import useCart from "@/(store)/store";
+import { useOrderDetails } from "@/hooks/useOrderDetails";
 import {
   Box,
   Flex,
-  Heading,
   HStack,
+  Heading,
   Link,
   Stack,
-  useColorModeValue as mode,
-  Card,
-  CardHeader,
-  CardBody,
-  FormLabel,
-  Input,
+  useColorModeValue as mode
 } from "@chakra-ui/react";
-import { CartOrderSummary } from "./CartOrderSummary";
-import { useOrderDetails } from "@/hooks/useOrderDetails";
-import Image from "next/image";
 import { CartItem } from "./CartItem";
+import { CartOrderSummary } from "./CartOrderSummary";
 import DeliveryDetails from "./DeliveryDetails";
-import useCart from "@/(store)/store";
 import EmptyCart from "./EmptyCart";
 import Loader from "./Loader";
 
@@ -26,13 +19,9 @@ const CartPage = () => {
   const { orderDetails, loading, error } = useOrderDetails();
 
   const reloadCart = () => {
-    // For now, we are just reloading the page
+    localStorage.removeItem("cart");
     window.location.reload();
   };
-  // const { products, paymentMethods } = orderDetails || {
-  //   products: [],
-  //   paymentMethods: [],
-  // };
 
   const hookCart = useCart();
 

@@ -3,7 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 const EmptyCart = () => {
   const reloadCart = () => {
-    // For now, we are just reloading the page
+    localStorage.removeItem("cart");
     window.location.reload();
   };
   return (

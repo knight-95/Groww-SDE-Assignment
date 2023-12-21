@@ -1,14 +1,24 @@
 // Import necessary libraries and components
-import { ChakraProvider, Box, Tabs, TabList, Tab, TabPanels, TabPanel, Text } from '@chakra-ui/react';
-import React from 'react';
+
+import CreditCardForm from "@/components/debit_card/CreditCard";
+import {
+  ChakraProvider,
+  Box,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Text,
+} from "@chakra-ui/react";
+import React from "react";
 
 // Card component
 const CardTab = () => {
   return (
     <Box p={4}>
       {/* Add your card payment form or relevant content here */}
-      <Text>Card Payment Form</Text>
-      
+      <CreditCardForm />
     </Box>
   );
 };
@@ -28,7 +38,7 @@ const PaymentPage = () => {
   return (
     <ChakraProvider>
       <Box p={8}>
-        <Tabs size='md' variant='enclosed'isFitted>
+        <Tabs size="md" variant="enclosed" isFitted>
           <TabList mb="1em">
             <Tab>Card</Tab>
             <Tab>Wallet</Tab>

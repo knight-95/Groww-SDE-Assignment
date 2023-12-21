@@ -13,11 +13,16 @@ export const useOrderDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchOrderDetails();
+        if (!localStorage.getItem("cart")) {
+          const data = await fetchOrderDetails();
+          localStorage.setItem("cart", JSON.stringify(data.products));
 
-        // setOrderDetails(data);
-        hookCart.setCart(data.products);
-        hookCart.setPaymentMethods(data.paymentMethods);
+          // setOrderDetails(data);
+          hookCart.setCart(data.products);
+          hookCart.setPaymentMethods(data.paymentMethods);
+        }else{
+          hookCart.setCart(JSON.parse(localStorage.getItem("cart")!));
+        }
       } catch (error: any) {
         setError(error.message || "Error fetching order details");
       } finally {
