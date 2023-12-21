@@ -35,6 +35,13 @@
 - Introduces a **status message** indicating the success, failure, or pending state of the transaction.
 - Randomizes the order status to provide a **varied user experience**.
 
+# Caching
+<img width="1280" alt="Screenshot 2023-12-22 at 01 23 10" src="https://github.com/knight-95/Groww-SDE-Assignment/assets/79582395/84679f70-3512-408d-b48c-00acf939be28">
+
+- Cart items will be stored in local **cache as Key-Value pair**
+- On refreshing cart, items won't be lost and no API Call shall be made
+
+
 # Transaction Successful 
 
 <img width="1280" alt="Screenshot 2023-12-22 at 01 14 46" src="https://github.com/knight-95/Groww-SDE-Assignment/assets/79582395/1a254418-c284-4580-a6b2-9249b5dd7ff5">
@@ -48,8 +55,3 @@
 
 - Redirected to payments page to **retry the payment**
 
-# Caching
-<img width="1280" alt="Screenshot 2023-12-22 at 01 23 10" src="https://github.com/knight-95/Groww-SDE-Assignment/assets/79582395/84679f70-3512-408d-b48c-00acf939be28">
-
-- Cart items will be stored in local **cache as Key-Value pair**
-- On refreshing cart, items won't be lost and no API Call shall be made
