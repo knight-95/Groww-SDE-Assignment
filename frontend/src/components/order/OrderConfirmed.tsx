@@ -7,7 +7,7 @@ const OrderConfirmed = () => {
   const router = useRouter();
   const finishOrder = () => {
     localStorage.removeItem("cart");
-    window.location.reload();
+
     router.push("/");
   };
   return (
