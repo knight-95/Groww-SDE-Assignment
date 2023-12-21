@@ -3,12 +3,14 @@ import { useState } from "react";
 
 interface QuantitySelectProps {
   defaultQuantity?: number;
-  onChangeQuantity?: (quantity: number) => void;
+  onChangeQuantity?: (productId: any, quantity: number) => void;
+  productId?: any;
 }
 
 const QuantitySelect = ({
   defaultQuantity = 1,
   onChangeQuantity,
+  productId,
 }: QuantitySelectProps) => {
   const [quantity, setQuantity] = useState(defaultQuantity);
   const toast = useToast(); // Initialize the toast function
@@ -17,7 +19,7 @@ const QuantitySelect = ({
     const newQuantity = Math.min(quantity + 1, 20); // Limit to a maximum of 20
     setQuantity(newQuantity);
     if (onChangeQuantity) {
-      onChangeQuantity(newQuantity);
+      onChangeQuantity(productId, newQuantity);
     }
 
     // Show toast when maximum cart value is reached
@@ -30,7 +32,7 @@ const QuantitySelect = ({
     const newQuantity = Math.max(quantity - 1, 1); // Limit to a minimum of 1
     setQuantity(newQuantity);
     if (onChangeQuantity) {
-      onChangeQuantity(newQuantity);
+      onChangeQuantity(productId, newQuantity);
     }
 
     // Show toast when minimum cart value is reached

@@ -22,10 +22,10 @@ type CartItemProps = {
   image: string;
   onChangeQuantity?: (quantity: number) => void;
   onClickGiftWrapping?: () => void;
-  onClickDelete?: (index:any) => void;
+  onClickDelete?: (index: any) => void;
 };
 
-export const CartItem = (props: CartItemProps) => {
+export const CartItemSummary = (props: CartItemProps) => {
   const {
     isGiftWrapping,
     title: title,
@@ -42,7 +42,8 @@ export const CartItem = (props: CartItemProps) => {
     // Call the parent component's delete handler to remove the item
     onClickDelete?.(index);
   };
-
+  // Trim the title to a maximum of 25 characters
+  const truncatedTitle = title.length > 25 ? `${title.slice(0, 25)}...` : title;
   return (
     <Flex
       direction={{ base: "column", md: "row" }}
@@ -50,10 +51,10 @@ export const CartItem = (props: CartItemProps) => {
       align="center"
     >
       <CartProductMeta
-        title={title}
-        description={description}
+        title={truncatedTitle}
+        // description={description}
         image={imageUrl}
-        isGiftWrapping={isGiftWrapping}
+        isGiftWrapping={false}
       />
 
       {/* Desktop */}
@@ -63,17 +64,8 @@ export const CartItem = (props: CartItemProps) => {
         display={{ base: "none", md: "flex" }}
         marginLeft="2rem"
       >
-        <QuantitySelect
-          defaultQuantity={quantity}
-          onChangeQuantity={(newQuantity) => {
-            onChangeQuantity?.(newQuantity);
-          }}
-        />
+        <Text>Qty. {quantity}</Text>
         <PriceTag price={price} currency="INR" />
-        <CloseButton
-          aria-label={`Delete ${title} from cart`}
-          onClick={handleDeleteClick} // Use the custom handler to delete entire item
-        />
       </Flex>
 
       {/* Mobile */}
@@ -84,15 +76,7 @@ export const CartItem = (props: CartItemProps) => {
         justify="space-between"
         display={{ base: "flex", md: "none" }}
       >
-        <Link fontSize="sm" textDecor="underline">
-          Delete
-        </Link>
-        <QuantitySelect
-          defaultQuantity={quantity}
-          onChangeQuantity={(newQuantity) => {
-            onChangeQuantity?.(newQuantity);
-          }}
-        />
+        <Text>Qty. {quantity}</Text>
         <PriceTag price={price} currency={currency} />
       </Flex>
     </Flex>
